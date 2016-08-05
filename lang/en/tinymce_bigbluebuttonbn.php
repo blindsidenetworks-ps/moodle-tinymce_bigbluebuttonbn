@@ -10,9 +10,8 @@
  */
 
 $string['pluginname'] = 'BigBlueButtonBN';
+$string['bigbluebuttonbn:desc'] = 'Insert a BigBlueButton recording';
 $string['settings'] = 'BigBlueButtonBN settings';
-$string['layout'] = 'Page layout';
-$string['layout_desc'] = 'Choose the page layout that works best with the theme and purpose of the site.';
 $string['recording_ready'] = 'Recording ready';
 $string['recording_processing'] = 'Processing recording';
 $string['action_annotation_annotate'] = 'Annotate';

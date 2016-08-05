@@ -47,11 +47,14 @@
             });
 
             ed.addCommand('mceBigBlueButtonBN', function() {
-                var bigbluebuttonbn = ed.getParam('bigbluebuttonbn', {}), key, cnt = 0,
-                    fileurl = ed.getParam("moodle_plugin_base") + 'bigbluebuttonbn/manage.php?';
+                var bigbluebuttonbn = ed.getParam('bigbluebuttonbn', {});
+                console.info(bigbluebuttonbn);
+                var viewparams = '';
                 for (key in bigbluebuttonbn) {
-                    fileurl += (cnt++ ? '&' : '') + encodeURIComponent(key) + "=" + encodeURIComponent(bigbluebuttonbn[key]) + "&";
+                    viewparams += (viewparams != '' ? '&' : '') + encodeURIComponent(key) + "=" + encodeURIComponent(bigbluebuttonbn[key]);
                 }
+                var viewurl = ed.getParam("moodle_plugin_base") + 'bigbluebuttonbn/bigbluebuttonbn.php' + (viewparams != '' ? '?' + viewparams : '');
+                console.info(viewurl);
                 var onClose = function() {
                    ed.windowManager.onClose.remove(onClose);
                    ed.execCommand('mceForceRepaint');
@@ -66,7 +69,7 @@
                     height = vp.h;
                 }
                 w = ed.windowManager.open({
-                    file : fileurl ,
+                    file : viewurl ,
                     width : width,
                     height : height,
                     inline : 1
@@ -78,39 +81,14 @@
                 }
             });
 
-            ed.addCommand('mceBigBlueButtonBNUsedFiles', function() {
-                var bigbluebuttonbn = ed.getParam('bigbluebuttonbn', {}),
-                    text = ed.dom.getRoot().innerHTML,
-                    base = ed.getParam('document_base_url') + '/draftfile.php/' + bigbluebuttonbn['usercontext'] + '/user/draft/' + bigbluebuttonbn['itemid'] + '/',
-                    patt = new RegExp(base.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') + "(.+?)[\\?\"']", 'gm'),
-                    arr = [], match, filename;
-                while ((match = patt.exec(text)) !== null) {
-                    filename = decodeURI(match[1]);
-                    if (arr.indexOf(filename) === -1) {
-                        arr[arr.length] = filename;
-                    }
-                }
-                return arr;
-            });
-
             var bigbluebuttonbn = ed.getParam('bigbluebuttonbn', {});
-            // Get draft area id from filepicker options.
-            if (!bigbluebuttonbn.itemid && M.editor_tinymce.filepicker_options
-                    && M.editor_tinymce.filepicker_options[ed.id]
-                    && M.editor_tinymce.filepicker_options[ed.id].image
-                    && M.editor_tinymce.filepicker_options[ed.id].image.itemid) {
-                bigbluebuttonbn.itemid = M.editor_tinymce.filepicker_options[ed.id].image.itemid;
-                ed.settings['bigbluebuttonbn'].itemid = bigbluebuttonbn.itemid;
-            }
 
-            // Register buttons
-            if (bigbluebuttonbn.itemid) {
-                ed.addButton('bigbluebuttonbn', {
-                    title : 'bigbluebuttonbn.desc',
-                    cmd : 'mceBigBlueButtonBN',
-                    image : url + '/img/bigbluebuttonbn.png'
-                });
-            }
+            // Register button
+            ed.addButton('bigbluebuttonbn', {
+                title : 'bigbluebuttonbn.desc',
+                cmd : 'mceBigBlueButtonBN',
+                image : url + '/img/bigbluebuttonbn.png'
+            });
         },
         createControl : function(n, cm) {
             return null;
