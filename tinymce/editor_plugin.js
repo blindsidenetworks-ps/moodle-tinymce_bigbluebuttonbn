@@ -8,6 +8,10 @@
  */
 
 (function() {
+    var each = tinymce.each;
+
+    tinymce.PluginManager.requireLangPack('bigbluebuttonbn');
+
     tinymce.create('tinymce.plugins.BigBlueButtonBN', {
         /**
          * Initializes the plugin, this will be executed after the plugin has been created.
@@ -48,13 +52,11 @@
 
             ed.addCommand('mceBigBlueButtonBN', function() {
                 var bigbluebuttonbn = ed.getParam('bigbluebuttonbn', {});
-                console.info(bigbluebuttonbn);
                 var viewparams = '';
                 for (key in bigbluebuttonbn) {
                     viewparams += (viewparams != '' ? '&' : '') + encodeURIComponent(key) + "=" + encodeURIComponent(bigbluebuttonbn[key]);
                 }
                 var viewurl = ed.getParam("moodle_plugin_base") + 'bigbluebuttonbn/bigbluebuttonbn.php' + (viewparams != '' ? '?' + viewparams : '');
-                console.info(viewurl);
                 var onClose = function() {
                    ed.windowManager.onClose.remove(onClose);
                    ed.execCommand('mceForceRepaint');

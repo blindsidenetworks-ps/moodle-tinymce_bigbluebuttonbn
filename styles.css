@@ -1,7 +1,0 @@
-#tinymce_bigbluebuttonbn_manageform.hasunusedfiles .bigbluebuttonbnstatus {display:none;}
-#tinymce_bigbluebuttonbn_manageform.hasmissingfiles .bigbluebuttonbnstatus {display:inline;}
-
-#tinymce_bigbluebuttonbn_manageform #id_deletefiles {display:none;}
-#tinymce_bigbluebuttonbn_manageform.hasunusedfiles #id_deletefiles {display:block;}
-#tinymce_bigbluebuttonbn_manageform #id_deletefiles .felement.fcheckbox {display:none;}
-#tinymce_bigbluebuttonbn_manageform #id_deletefiles .felement.fcheckbox.isunused {display:block;}

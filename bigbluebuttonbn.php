@@ -244,6 +244,19 @@ if ( $action == 'launch' || $action != 'logout' && !bigbluebuttonbn_is_annotated
     $out .= '    }'."\n";
     $out .= '</style>'."\n";
 
+    $out .= '<script type="text/javascript">'."\n";
+    // Because there is no relative path to TinyMCE, we have to use JavaScript
+    // to work out correct path from the .js files from TinyMCE. Only files
+    // inside this plugin can be included with relative path (below).
+    $out .= '   var editor_tinymce_include = function(path) {'."\n";
+    $out .= '       document.write(\'<script type="text/javascript" src="\' + parent.tinyMCE.baseURL + \'/\' + path + \'"></\' + \'script>\');'."\n";
+    $out .= '   };'."\n";
+    $out .= '   editor_tinymce_include(\'tiny_mce_popup.js\');'."\n";
+    $out .= '   editor_tinymce_include(\'utils/validate.js\');'."\n";
+    $out .= '   editor_tinymce_include(\'utils/form_utils.js\');'."\n";
+    $out .= '   editor_tinymce_include(\'utils/editable_selects.js\');'."\n";
+    $out .= '</script>'."\n";
+
 
     $out .= '<div><center>'."\n";
     //// Recordings
