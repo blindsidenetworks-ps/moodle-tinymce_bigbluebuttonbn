@@ -28,7 +28,7 @@ $PAGE->set_heading($title);
 // Reset page layout for inside editor.
 $PAGE->set_pagelayout('popup');
 
-if ( isset($SESSION->bigbluebuttonbn_bbbsession) && !is_null($SESSION->bigbluebuttonbn_bbbsession) ) {
+if ( $action != '' && isset($SESSION->bigbluebuttonbn_bbbsession) && !is_null($SESSION->bigbluebuttonbn_bbbsession) ) {
     $bbbsession = $SESSION->bigbluebuttonbn_bbbsession;
 } else {
     ////////////////////////////////////////////////
@@ -41,8 +41,8 @@ if ( isset($SESSION->bigbluebuttonbn_bbbsession) && !is_null($SESSION->bigbluebu
     $bbbsession['managerecordings'] = true;
 
     // BigBlueButton server data
-    $bbbsession['bbb_endpoint'] = bigbluebuttonbn_get_cfg_server_url();
-    $bbbsession['bbb_secret'] = bigbluebuttonbn_get_cfg_shared_secret();
+    $bbbsession['endpoint'] = bigbluebuttonbn_get_cfg_server_url();
+    $bbbsession['shared_secret'] = bigbluebuttonbn_get_cfg_shared_secret();
 
     // Server data
     $bbbsession['modPW'] = bigbluebuttonbn_random_password(12);
@@ -94,12 +94,12 @@ if ( isset($SESSION->bigbluebuttonbn_bbbsession) && !is_null($SESSION->bigbluebu
 echo $OUTPUT->header();
 //$mform->display();
 
-$recordings = bigbluebuttonbn_getRecordingsArray( $bbbsession['meetingid'], $bbbsession['bbb_endpoint'], $bbbsession['bbb_secret'] );
+$recordings = bigbluebuttonbn_getRecordingsArray( $bbbsession['meetingid'], $bbbsession['endpoint'], $bbbsession['shared_secret'] );
 //If not annotated and no recordings or action=launch proceed with the login
 if ( $action == 'launch' || $action != 'logout' && !bigbluebuttonbn_is_annotated($content) && empty($recordings) ) {
     // Try to join BigBlueButton directly.
     $error = array();
-    $meeting = bigbluebuttonbn_getMeetingArray( $bbbsession['meetingid'], $bbbsession['bbb_endpoint'], $bbbsession['bbb_secret'] );
+    $meeting = bigbluebuttonbn_getMeetingArray( $bbbsession['meetingid'], $bbbsession['endpoint'], $bbbsession['shared_secret'] );
     if ( $meeting ) {
         $password = $meeting['moderatorPW'];
     } else {
@@ -123,8 +123,8 @@ if ( $action == 'launch' || $action != 'logout' && !bigbluebuttonbn_is_annotated
                 '',                                     //welcome
                 $bbbsession['modPW'],
                 $bbbsession['viewerPW'],
-                $bbbsession['bbb_secret'],
-                $bbbsession['bbb_endpoint'],
+                $bbbsession['shared_secret'],
+                $bbbsession['endpoint'],
                 $bbbsession['logoutURL'],
                 'true',                                 //record
                 0,                                      //durationtime
@@ -154,7 +154,7 @@ if ( $action == 'launch' || $action != 'logout' && !bigbluebuttonbn_is_annotated
 
     if ( empty($error) ) {
         // get defaul config XML
-        $defaultConfigXML = bigbluebuttonbn_getDefaultConfigXML($bbbsession['bbb_endpoint'], $bbbsession['bbb_secret']);
+        $defaultConfigXML = bigbluebuttonbn_getDefaultConfigXML($bbbsession['endpoint'], $bbbsession['shared_secret']);
         if ( isset($defaultConfigXML->returncode) ) {
             error_log("Default config XML could not be retrieved");
             $error = array('messageKey' => $defaultConfigXML->response['messageKey'], 'message' => $defaultConfigXML->response['message']);
@@ -202,7 +202,7 @@ if ( $action == 'launch' || $action != 'logout' && !bigbluebuttonbn_is_annotated
             $configToken = bigbluebuttonbn_bbb_broker_set_config_xml($bbbsession['meetingid'], $configXML);
         }
         // obtain join_url
-        $join_url = bigbluebuttonbn_getJoinURL($bbbsession['meetingid'], $bbbsession['username'], $password, $bbbsession['bbb_secret'], $bbbsession['bbb_endpoint'], $bbbsession['logoutURL'], $configToken);
+        $join_url = bigbluebuttonbn_getJoinURL($bbbsession['meetingid'], $bbbsession['username'], $password, $bbbsession['shared_secret'], $bbbsession['endpoint'], $bbbsession['logoutURL'], $configToken);
         // render javascript for executing the redirect
         echo "<script language=\"javascript\">//<![CDATA[\n";
         echo "window.location = '".$join_url."';";
