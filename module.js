@@ -58,23 +58,15 @@ M.tinymce_bigbluebuttonbn.view_init = function(Y) {
 
 M.tinymce_bigbluebuttonbn.view_annotate = function() {
     console.info('Annotate...');
-    var button = window.parent.Y.namespace('M.tinymce_bigbluebuttonbn').tinymce_bigbluebuttonbn_button;
-    console.info(button);
-    //button._annotate(_create_annotation());
 
     var recording_active = Y.one('.btn.recording.active');
     if ( recording_active == null ) {
         //Warning, you need to select a recording to insert an annotation
     } else {
-        var host = button.get('host');
-        console.info(host);
-        var content = host.textarea.get('value');
-        //console.info(content);
         var annotation = _create_annotation(recording_active.getAttribute('id'), recording_active.getAttribute('data-url'));
         console.info(annotation);
-        //lookup for annotation, if there was one already replace, if there wasn't add it
-        host.insertContentAtFocusPoint(annotation);
-        button.markUpdated();
+        ////lookup for annotation, if there was one already replace, if there wasn't add it
+        tinyMCEPopup.editor.execCommand('mceInsertContent', false, annotation);
     }
 
     tinyMCEPopup.close();
