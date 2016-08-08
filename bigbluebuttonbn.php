@@ -21,12 +21,11 @@ require_sesskey();
 $PAGE->set_context($context);
 $PAGE->set_url(MOODLE_TINYMCE_BIGBLUEBUTTONBN_URL);
 $PAGE->set_cacheable(false);
-$title = $cm->name;
+$title = isset($cm->name)? $cm->name: '';
 $PAGE->set_title($title);
 $PAGE->set_heading($title);
 
 // Reset page layout for inside editor.
-//$PAGE->set_pagelayout(get_config('atto_bigbluebuttonbn', 'layout'));
 $PAGE->set_pagelayout('popup');
 
 if ( isset($SESSION->bigbluebuttonbn_bbbsession) && !is_null($SESSION->bigbluebuttonbn_bbbsession) ) {
