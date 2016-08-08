@@ -11,6 +11,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+global $CFG;
+
 const MOODLE_TINYMCE_BIGBLUEBUTTONBN_ROOT = '/lib/editor/tinymce/plugins/bigbluebuttonbn/';
 const MOODLE_TINYMCE_BIGBLUEBUTTONBN_URL = '/lib/editor/tinymce/plugins/bigbluebuttonbn/bigbluebuttonbn.php';
 
