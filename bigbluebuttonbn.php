@@ -55,8 +55,8 @@ if ( $action != '' && isset($SESSION->bigbluebuttonbn_bbbsession) && !is_null($S
         $bbbsession['meetingname'] = $cm->name;
         $bbbsession['meetingdescription'] = bigbluebuttonbn_html2text($cm_module->intro, 64);
     } else {
-        $bbbsession['meetingname'] = "Test";
-        $bbbsession['meetingdescription'] = "Testing the test";
+        $bbbsession['meetingname'] = "";
+        $bbbsession['meetingdescription'] = "";
     }
 
     $bbbsession['record'] = true;
@@ -315,7 +315,7 @@ if ( $action == 'launch' || $action != 'logout' && !bigbluebuttonbn_is_annotated
 
     $jsmodule = array(
         'name'     => 'tinymce_bigbluebuttonbn',
-        'fullpath' => MOODLE_TINYMCE_BIGBLUEBUTTONBN_ROOT.'module.js',
+        'fullpath' => MOODLE_TINYMCE_BIGBLUEBUTTONBN_ROOT.'tinymce_module.js',
         'requires' => array('datasource-get', 'datasource-jsonschema', 'datasource-polling'),
     );
     $PAGE->requires->js_init_call('M.tinymce_bigbluebuttonbn.view_init', array(), false, $jsmodule);
