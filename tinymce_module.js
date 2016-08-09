@@ -136,7 +136,7 @@ _update_recording_polling = function(recording) {
     Y.one('#recording_polling').addClass('hidden');
     /// Add new recording button
     var div_new_recording = Y.Node.create('<div id="' + recording['recordID'] + '" class="show-recording"><input class="delete" type="button" value="x" onclick="M.tinymce_bigbluebuttonbn.view_delete(\'' + recording['recordID'] + '\');" /></div>');
-    var new_recording = Y.Node.create('<button onclick="M.tinymce_bigbluebuttonbn.view_select();" type="button" class="btn btn-secondary recording" ondblclick="window.open(\''+recording['playbacks']['presentation']['url']+'\');return false;" id="' + recording['recordID'] + '" title="' + bigbluebuttonbn.recording_ready + '" data-url="' + recording['playbacks']['presentation']['url'] + '"><img src="' + bigbluebuttonbn.recording_icon80 + '" alt="Recording ready" /></button>');
+    var new_recording = Y.Node.create('<button onclick="M.tinymce_bigbluebuttonbn.view_select(this);" type="button" class="btn btn-secondary recording" ondblclick="window.open(\''+recording['playbacks']['presentation']['url']+'\');return false;" id="' + recording['recordID'] + '" title="' + bigbluebuttonbn.recording_ready + '" data-url="' + recording['playbacks']['presentation']['url'] + '"><img src="' + bigbluebuttonbn.recording_icon80 + '" alt="Recording ready" /></button>');
     div_new_recording.append(new_recording);
     Y.one('#recording_selector').append(div_new_recording);
     /// Restore the button for adding new recordings

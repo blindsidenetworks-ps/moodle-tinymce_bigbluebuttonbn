@@ -49,7 +49,7 @@ if ( $action != '' && isset($SESSION->bigbluebuttonbn_bbbsession) && !is_null($S
     $bbbsession['viewerPW'] = bigbluebuttonbn_random_password(12);
 
     // Database info related to the activity
-    $bbbsession['meetingid'] = sha1($CFG->wwwroot.$cm->id.$USER->id.bigbluebuttonbn_get_cfg_shared_secret());
+    $bbbsession['meetingid'] = sha1($CFG->wwwroot.$cm->id.$USER->id.$bbbsession['shared_secret']);
     if ( isset($cm->modname) ) {
         $cm_module = $DB->get_record($cm->modname, array('id' => $cm->instance));
         $bbbsession['meetingname'] = $cm->name;
